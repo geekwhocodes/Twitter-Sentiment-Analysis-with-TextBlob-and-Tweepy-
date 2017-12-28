@@ -1,0 +1,13 @@
+Airline Name  : 
+None - 0
+Virgin America - 1
+United - 2
+Southwest - 3
+Delta- 4
+US Airways - 5
+American -6
+===================================
+sentimants :
+1 - positive
+0 - nuetral
+-1 - negative

@@ -1,0 +1,89 @@
+{% extends "layout.html" %} {% block content %} {% include "navbar.html" %}
+<section class="" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <p>Virgin America</p>
+                <canvas id="1" width="200" height="100"></canvas>
+            </div>
+            <div class="col-lg-4">
+                <p>United </p>
+                <canvas id="2" width="200" height="100"></canvas>
+            </div>
+            <div class="col-lg-4">
+                <p>Southwest </p>
+                <canvas id="3" width="200" height="100"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <p>Delta</p>
+                <canvas id="4" width="200" height="100"></canvas>
+            </div>
+            <div class="col-lg-4">
+                <p>US Airways</p>
+                <canvas id="5" width="200" height="100"></canvas>
+            </div>
+            <div class="col-lg-4">
+                <p>American </p>
+                <canvas id="6" width="200" height="100"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-4"<div class="col-lg-4">
+                <p>None</p>
+                <canvas id="0" width="200" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<script>
+    function abs(r){
+        return Math.round(r).toFixed(1)
+    }
+    function draw(stat) {
+        var ctx = document.getElementById(stat[1]);
+        var total = stat[0][0]+stat[0][1]+stat[0][-1];
+        var data = {
+            labels: [
+                "Neutral( % )",
+                "Positive( % )",
+                "Negative( % )"
+            ],
+            datasets: [
+                {
+                    data: [abs(stat[0][0]*100/total), abs(stat[0][1]*100/total), abs(stat[0][-1]*100/total)],
+                    backgroundColor: [
+                        "#888885",
+                        "#24CF19",
+                        "#EF3B14"
+                    ],
+                    hoverBackgroundColor: [
+                        "#4F4F4F",
+                        "#2C7105",
+                        "#FF2A00"
+                    ]
+                }]
+        };
+        var myDoughnutChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: {
+                animation: {
+                    animateScale: true
+                }
+            }
+        });
+    }
+    $.ajax({
+        url: "../../v1/stats", success: function (r) {
+            r.results.forEach(function (w) {
+                draw(w)
+            });
+        }    
+});
+</script>
+
+
+{% endblock %}
